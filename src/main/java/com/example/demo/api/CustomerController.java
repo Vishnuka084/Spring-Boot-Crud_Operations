@@ -2,6 +2,10 @@ package com.example.demo.api;
 
 import com.example.demo.db.Database;
 import com.example.demo.dto.request.RequestCustomerDto;
+import com.example.demo.util.StandardResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,11 +21,14 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     @PostMapping
-    public String createCustomer(
+    public ResponseEntity<StandardResponse> createCustomer(
            @RequestBody RequestCustomerDto customerDto
     ){
-        return Database.createCustomer(customerDto).toString();
-
+        var savedData = Database.createCustomer(customerDto);
+        return new ResponseEntity<>(
+                new StandardResponse(201,"customer Saved!",savedData.toString()),
+                HttpStatus.CREATED
+        );
     }
     @PutMapping
     public String updateCustomer(){return "updated Customer";}
