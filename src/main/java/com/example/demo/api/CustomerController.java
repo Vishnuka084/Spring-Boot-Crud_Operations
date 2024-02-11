@@ -30,8 +30,18 @@ public class CustomerController {
                 HttpStatus.CREATED
         );
     }
-    @PutMapping
-    public String updateCustomer(){return "updated Customer";}
+    @PutMapping(params = "id")
+    public ResponseEntity<StandardResponse>  updateCustomer(
+        @RequestParam int id,
+        @RequestBody RequestCustomerDto customerDto
+    ){
+
+        var savedData = Database.createCustomer(customerDto);
+        return new ResponseEntity<>(
+                new StandardResponse(201,"customer updaed!!",savedData),
+                HttpStatus.CREATED
+        );
+    }
 
 
     @DeleteMapping
