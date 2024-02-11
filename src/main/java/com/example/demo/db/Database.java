@@ -5,6 +5,7 @@ import com.example.demo.dto.request.RequestCustomerDto;
 import com.example.demo.dto.response.ResponseCustomerDto;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -41,6 +42,30 @@ public class Database {
                 customerDto.isActiveState()
 
         );
+    }
+
+
+    public static ResponseCustomerDto findCustomer(int id) throws ClassNotFoundException {
+
+        Optional<CustomerDto> selectedCustomer = customerTable.stream()
+                .filter(e -> e.getPublicId() == id)
+                .findFirst();
+
+
+
+
+        if (selectedCustomer.isPresent()){
+            return new ResponseCustomerDto(
+                    selectedCustomer.get().getPublicId(),
+                    selectedCustomer.get().getName(),
+                    selectedCustomer.get().getAddress(),
+                    selectedCustomer.get().getSalary(),
+                    selectedCustomer.get().isActiveState()
+
+            );
+        }
+        throw new ClassNotFoundException();
+
     }
 
 }

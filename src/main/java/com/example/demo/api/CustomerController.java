@@ -26,7 +26,7 @@ public class CustomerController {
     ){
         var savedData = Database.createCustomer(customerDto);
         return new ResponseEntity<>(
-                new StandardResponse(201,"customer Saved!",savedData.toString()),
+                new StandardResponse(201,"customer Saved!",savedData),
                 HttpStatus.CREATED
         );
     }
@@ -34,8 +34,13 @@ public class CustomerController {
     public String updateCustomer(){return "updated Customer";}
     @DeleteMapping
     public String deleteCustomer(){return"delete Customer";}
-    @GetMapping
-    public String findCustomer(){return"findAll Customer";}
+    @GetMapping("/{id}")
+    public ResponseEntity<StandardResponse> findCustomer(@PathVariable int id){
+        return new ResponseEntity<>(
+                new StandardResponse(200,"customer Data!",Database.findCustomer(id)),
+                HttpStatus.OK
+        );
+    }
     @GetMapping("/list")
     public String getAllCustomer(){return"getAll Customer";}
 }
