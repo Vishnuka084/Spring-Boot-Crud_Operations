@@ -32,8 +32,12 @@ public class CustomerController {
     }
     @PutMapping
     public String updateCustomer(){return "updated Customer";}
+
+
     @DeleteMapping
     public String deleteCustomer(){return"delete Customer";}
+
+
     @GetMapping("/{id}")
     public ResponseEntity<StandardResponse> findCustomer(@PathVariable int id) throws ClassNotFoundException {
         return new ResponseEntity<>(
@@ -41,6 +45,8 @@ public class CustomerController {
                 HttpStatus.OK
         );
     }
+
+
     @GetMapping("/list")
     public String getAllCustomer(){return"getAll Customer";}
 }
