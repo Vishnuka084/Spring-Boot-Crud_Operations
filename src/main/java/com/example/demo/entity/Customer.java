@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
+import com.example.demo.entity.process.FileResource;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,20 +24,19 @@ import java.sql.Blob;
 @NoArgsConstructor
 public class Customer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long publicId;
     private String name;
     private String address;
     private double salary;
 
+    @Column(columnDefinition = "TINYINT")
     private boolean activeState;
 
-    /*---------------------------*/
-    private Blob fileName;
-    private Blob resourceUrl;
-    private Blob directory;
-    private Blob hash;
-    /*---------------------------*/
+    @Embedded
+    private FileResource fileResource;
 
 
 }
