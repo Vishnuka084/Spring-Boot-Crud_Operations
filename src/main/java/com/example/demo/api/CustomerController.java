@@ -2,7 +2,9 @@ package com.example.demo.api;
 
 import com.example.demo.db.Database;
 import com.example.demo.dto.request.RequestCustomerDto;
+import com.example.demo.service.CustomerService;
 import com.example.demo.util.StandardResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
 
+
+    private final CustomerService customerService;
+
+    @Autowired
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
     @PostMapping
     public ResponseEntity<StandardResponse> createCustomer(
            @RequestBody RequestCustomerDto customerDto
     ){
-        var savedData = Database.createCustomer(customerDto);
+        var savedData = CustomerService.createCustomer(customerDto);
         return new ResponseEntity<>(
                 new StandardResponse(201,"customer Saved!",savedData),
                 HttpStatus.CREATED
