@@ -66,6 +66,16 @@ public class CustomerController {
     }
 
 
-    @GetMapping("/list")
-    public String getAllCustomer(){return"getAll Customer";}
+    @GetMapping(value = "/list", params = {"page","size","searchText"})
+    public ResponseEntity<StandardResponse>  getAllCustomer(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String searchText
+
+    ) throws ClassNotFoundException {
+        return new ResponseEntity<>(
+                new StandardResponse(200,"customer List!",Database.searchAllCustomer(page,size,searchText)),
+                HttpStatus.OK
+        );
+    }
 }

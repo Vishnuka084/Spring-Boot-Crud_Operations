@@ -3,8 +3,10 @@ package com.example.demo.db;
 import com.example.demo.dto.core.CustomerDto;
 import com.example.demo.dto.request.RequestCustomerDto;
 import com.example.demo.dto.response.ResponseCustomerDto;
+import com.example.demo.dto.response.paginated.model.CustomerPaginatedDto;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -104,6 +106,22 @@ public class Database {
         }
         throw new ClassNotFoundException();
 
+    }
+
+    public static CustomerPaginatedDto searchAllCustomer(int page,int size, String searchText) throws ClassNotFoundException {
+        List<ResponseCustomerDto> list = new ArrayList<>();
+        for (CustomerDto  d: customerTable) {
+            list.add(new ResponseCustomerDto(
+
+                    d.getPublicId(),
+                    d.getName(),
+                    d.getAddress(),
+                    d.getSalary(),
+                    d.isActiveState()
+            ));
+        }
+
+        return new CustomerPaginatedDto(customerTable.size(),list);
     }
 
 
