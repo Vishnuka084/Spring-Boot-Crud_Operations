@@ -4,7 +4,6 @@ import com.example.demo.db.Database;
 import com.example.demo.dto.request.RequestCustomerDto;
 import com.example.demo.util.StandardResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
