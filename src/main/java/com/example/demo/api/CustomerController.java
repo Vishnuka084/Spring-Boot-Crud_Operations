@@ -34,11 +34,11 @@ public class CustomerController {
     public ResponseEntity<StandardResponse>  updateCustomer(
         @RequestParam int id,
         @RequestBody RequestCustomerDto customerDto
-    ){
+    ) throws ClassNotFoundException {
 
-        var savedData = Database.createCustomer(customerDto);
+        var savedData = Database.updateCustomer(customerDto,id);
         return new ResponseEntity<>(
-                new StandardResponse(201,"customer updaed!!",savedData),
+                new StandardResponse(201,"customer updated!!",savedData),
                 HttpStatus.CREATED
         );
     }
